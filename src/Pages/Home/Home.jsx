@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import Nav from "./Sections/Nav";
 
 const Home = () => {
-  const [open, setOpen] = useState(false);
   return (
     <div>
-      <header></header>
+      <header>
+        <Nav />
+      </header>
     </div>
   );
 };
