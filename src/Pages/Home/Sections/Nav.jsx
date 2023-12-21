@@ -8,7 +8,9 @@ const Nav = () => {
       <nav className="flex items-center mx-auto max-w-screen-xl p-5">
         <div className="logo absolute">
           {/* <img src="" alt="" /> */}
-          <h1 className="text-4xl text-blue-600 font-semibold">logo</h1>
+          <h1 className="text-4xl font-semibold">
+            Task<span className="text-blue-600">Span</span>
+          </h1>
         </div>
         <div className="flex justify-center mx-auto text-center">
           <ul className="hidden font-medium text-xl lg:flex gap-5 items-center">

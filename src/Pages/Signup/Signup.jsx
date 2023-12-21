@@ -10,7 +10,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 export function SignUp() {
   useEffect(() => {
-    window.document.title = "PrimePress | Sign Up";
+    window.document.title = "TaskSnap | Sign Up";
   }, []);
   const {
     register,
@@ -24,7 +24,6 @@ export function SignUp() {
   const [creating, setCreating] = useState(false);
   const onSubmit = async (data, e) => {
     e.preventDefault();
-
     setCreating(true);
     const name = data.name;
     const image = data.photo[0];
@@ -115,7 +114,7 @@ export function SignUp() {
   };
   return (
     <div className="mx-3 ">
-      <div className="mx-auto max-w-lg my-20 px-6 py-5  rounded-lg">
+      <div className="mx-auto max-w-lg my-5 lg:my-20 px-6 py-5  rounded-lg">
         <div color="transparent" className="text-inherit">
           <h4 className="text-3xl font-bold">Register</h4>
           <form
@@ -124,28 +123,15 @@ export function SignUp() {
           >
             <div className="mb-4 flex flex-col gap-6 ">
               <div>
-                <div className="mx-auto w-fit">
-                  <label htmlFor="files">
-                    <p className="font-bold text-center my-2">Upload Profile</p>
-                    <figure className="bg-black p-2 rounded-full w-fit  mx-auto cursor-pointer">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="50"
-                        height="50"
-                        fill="white"
-                        viewBox="0 0 20 17"
-                      >
-                        <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
-                      </svg>
-                    </figure>
-                  </label>
+                <div className="">
+                  <label htmlFor="files">Upload Profile</label>
                   <input
                     id="files"
                     type="file"
                     size="lg"
                     name="photo"
                     {...register("photo", {
-                      required: true,
+                      required: "Photo is required",
                       validate: {
                         lessThan10MB: (files) =>
                           files[0]?.size < 10000000 || "Max 10MB",
@@ -159,19 +145,19 @@ export function SignUp() {
                           "Only PNG, JPEG, GIF, JPG",
                       },
                     })}
-                    label="Upload your photo"
-                    className="file:hidden  overflow-hidden w-28 underline  cursor-pointer "
+                    className="file:bg-gray-950 file:rounded-lg file:text-white overflow-hidden underline  cursor-pointer "
                   />
                 </div>
                 {errors.photo && (
-                  <p className="text-red-800 text-xs text-center">
-                    Photo is required field!
-                  </p>
+                  <p className="text-red-800 text-xs">{errors.photo.message}</p>
                 )}
               </div>
 
               <div>
+                <label htmlFor="Name">Your Name</label>
                 <input
+                  id="name"
+                  placeholder="John Doe"
                   type="text"
                   size="lg"
                   name="name"
@@ -189,10 +175,13 @@ export function SignUp() {
               </div>
 
               <div>
+                <label htmlFor="email">Your email</label>
                 <input
+                  id="email"
                   type="email"
                   size="lg"
                   name="email"
+                  placeholder="abc@example.com"
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -210,10 +199,13 @@ export function SignUp() {
                 )}
               </div>
               <div>
+                <label htmlFor="pass">Password</label>
                 <input
+                  id="pass"
                   type="password"
                   size="lg"
                   name="password"
+                  placeholder="********"
                   {...register("password", {
                     required: "password is required!",
                     minLength: {
@@ -238,20 +230,11 @@ export function SignUp() {
               </div>
             </div>
 
-            {creating ? (
-              <button
-                className={`mx-auto flex items-center gap-3  justify-center   bg-transparent   rounded-none  outline outline-2 outline-black   hover:scale-105 py-0  delay-75 ease-linear`}
-              >
-                <div>loading....</div>
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
-              >
-                Register
-              </button>
-            )}
+            <button
+              className={`mt-6  mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2 ease-linear px-4 py-2 duration-300`}
+            >
+              {creating ? "loading..." : "Continue"}
+            </button>
 
             <p className="mt-4 text-center font-normal">
               Already have an account?{" "}
@@ -275,7 +258,7 @@ export function SignUp() {
                       email: res.user.email,
                       img: res.user.photoURL,
                     };
-                    axiosP
+                    axios
                       .post("/addUser", user)
                       .then(() => {})
                       .catch((err) => {
@@ -297,9 +280,9 @@ export function SignUp() {
                   .catch(() => setCreating(false));
               }}
               type="submit"
-              className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  bg-transparent text-black hover:text-white hover:bg-black border-black rounded-none border-2 hover:scale-105  delay-50 ease-linear`}
+              className={`mt-6 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}
             >
-              login with google
+              Continue with google
             </button>
           </div>
         </div>

@@ -7,7 +7,7 @@ import axios from "axios";
 
 export function SignIn() {
   useEffect(() => {
-    window.document.title = "PrimePress | Sign In";
+    window.document.title = "TaskSnap | Sign In";
   }, []);
   const { signIn, signG } = useContext(AuthContext);
   const [logging, setLogging] = useState(false);
@@ -25,7 +25,7 @@ export function SignIn() {
     const email = data.email;
     const password = data.password;
     const user = { email, password };
-
+    console.log(user);
     signIn(email, password)
       .then(() => {
         setLogging(false);
@@ -43,7 +43,6 @@ export function SignIn() {
       })
       .catch((err) => {
         setLogging(false);
-        console.dir(err);
         const error = err.code;
         if (error === "auth/too-many-requests") {
           setError("password", {
@@ -62,20 +61,22 @@ export function SignIn() {
   };
   return (
     <div className="mx-3">
-      <div className="mx-auto max-w-lg my-20 px-6 py-5  rounded-lg ">
-        <div color="transparent" shadow={false} className="text-inherit">
-          <h4 className="text-3xl font-bold">Sign In</h4>
-
+      <div className="mx-auto max-w-lg my-8 lg:my-20 px-6 py-5  rounded-lg ">
+        <div className="text-inherit">
+          <h4 className="text-3xl font-bold">Log In</h4>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="mt-8 mb-2 max-w-screen-lg "
           >
             <div className="mb-4 flex flex-col gap-6">
               <div>
+                <label htmlFor="email">Your Email</label>
                 <input
+                  id="email"
                   type="email"
                   size="lg"
                   name="email"
+                  placeholder="abc@example.com"
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -93,7 +94,10 @@ export function SignIn() {
                 )}
               </div>
               <div>
+                <label htmlFor="pass">Password</label>
                 <input
+                  id="pass"
+                  placeholder="*************"
                   type="password"
                   size="lg"
                   name="password"
@@ -110,23 +114,17 @@ export function SignIn() {
                 )}
               </div>
             </div>
-            {logging ? (
-              <button
-                className={`mx-auto flex items-center gap-3  justify-center   bg-transparent   rounded-none  outline outline-2 outline-black   hover:scale-105 py-0  delay-75 ease-linear`}
-              >
-                loaddin....
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
-              >
-                Login
-              </button>
-            )}
+            <button
+              className={`mt-6  mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2 ease-linear px-4 py-2 duration-300`}
+            >
+              {logging ? "loading..." : "Continue"}
+            </button>
             <p className="mt-4 text-center font-normal">
               Don't have an account?{" "}
-              <Link to="/signUp" className="underline font-semibold text-black">
+              <Link
+                to="/register"
+                className="underline font-semibold text-black"
+              >
                 Register
               </Link>
             </p>
@@ -168,9 +166,9 @@ export function SignIn() {
                   .catch(() => setLogging(false));
               }}
               type="submit"
-              className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2 hover:scale-105  delay-50 ease-linear`}
+              className={`mt-6 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}
             >
-              login with google
+              continue with google
             </button>
           </div>
         </div>
