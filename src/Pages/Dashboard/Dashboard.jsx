@@ -1,9 +1,7 @@
+import { Link } from "react-router-dom";
+
 const Dashboard = () => {
-  return (
-    <div>
-      <h1>fade</h1>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Dashboard;

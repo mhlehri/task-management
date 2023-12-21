@@ -75,59 +75,91 @@ const AddTask = () => {
 
   return (
     <div className="text-black w-full  mx-auto h-[80vh] flex items-center justify-center flex-col">
-      <h1 className="mb-5 font-bold text-4xl text-blue-500">Add New Task</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-gradient-to-tr from-[#58bfff]  to-blue-600 p-8 rounded-lg drop-shadow-2xl"
+        className="bg-gradient-to-tr from-[#207cb5] lg:w-[500px]  to-orange-600 p-8 rounded-lg drop-shadow-2xl"
       >
-        <div className="grid gap-4 mb-6 md:grid-cols-2">
-          <div>
-            <label
-              htmlFor="title"
-              className="block mb-2  text-sm font-medium text-white"
-            >
-              Title
-            </label>
-            <input
-              id="title"
-              type="text"
-              {...register("title")}
-              placeholder="article title here"
-              className="py-2 px-4 rounded-md block outline-blue-400   w-full border border-gray-400  text-sm "
-              required
-            />
-          </div>
+        <h1 className="mb-5 font-bold text-4xl text-white text-center">
+          Add New Task
+        </h1>
+        <div>
+          <label
+            htmlFor="title"
+            className="block mb-2  text-sm font-medium text-white"
+          >
+            Title
+          </label>
+          <input
+            id="title"
+            type="text"
+            {...register("title", {
+              required: "Title is required!",
+            })}
+            placeholder="article title here"
+            className=" rounded-md mb-2 block outline-blue-400   w-full border border-gray-400  text-sm"
+          />
+          {errors.title && (
+            <span className="text-amber-400 text-xs">
+              {errors.title.message}
+            </span>
+          )}
+        </div>
 
-          <div>
-            <label className="block mb-2 text-sm font-medium text-white">
-              Publishers
-            </label>
-            <Select
-              styles={customStyles}
-              value={selectedOption}
-              required
-              placeholder="Select a publisher"
-              {...register("publisher")}
-              name="publisher"
-              onChange={setSelectedOption}
-              options={options1}
-            />
-          </div>
+        <div>
+          <label className="block mb-2 text-sm font-medium text-white">
+            Priority
+          </label>
+
+          <select name="priority" id="" className="text-sm mb-2">
+            <option value="low">Low</option>
+            <option value="moderate">Moderate</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="date"
+            className="block mb-2  text-sm font-medium text-white"
+          >
+            Deadline
+          </label>
+          <input
+            id="date"
+            type="datetime-local"
+            {...register("date", {
+              required: "Deadline is required!",
+            })}
+            placeholder="article title here"
+            className=" rounded-md mb-2 block outline-blue-400   w-full border border-gray-400  text-sm"
+          />
+          {errors.date && (
+            <span className="text-amber-400 text-xs">
+              {errors.date.message}
+            </span>
+          )}
         </div>
 
         <label
           htmlFor="article"
           className="block mb-2  text-sm font-medium text-white"
         >
-          Article
+          Task Description
         </label>
         <textarea
-          className="py-3 resize-none outline-blue-400  px-4 block w-full border border-gray-400 mb-6  text-sm "
+          className=" resize-none outline-blue-400 block w-full border border-gray-400  text-sm "
           rows="3"
           id="article"
-          {...register("article")}
-          placeholder="write article here"
+          {...register("des", {
+            minLength: {
+              value: 20,
+              message: "Description should be at least 20 character!",
+            },
+          })}
+          placeholder="This is about..."
         ></textarea>
+        {errors.des && (
+          <span className="text-amber-400 text-xs">{errors.des.message}</span>
+        )}
         <button
           className={`mt-6  mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-white hover:text-black hover:bg-white border-white border-2 ease-linear px-4 py-2 duration-300`}
         >

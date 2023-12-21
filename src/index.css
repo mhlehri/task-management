@@ -17,10 +17,19 @@ body {
 }
 
 input,
-textarea {
+textarea,
+select {
   outline: none;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 15px 10px;
   width: 100%;
+}
+input:hover,
+textarea:hover,
+select:hover {
+  box-shadow: 1px 1px 12px #414141;
+}
+form > button:hover {
+  box-shadow: 1px 1px 12px #414141;
 }

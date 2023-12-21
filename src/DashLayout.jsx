@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 import DashNav from "./Pages/Dashboard/component/DashNav";
 const DashLayout = () => {
   return (
-    <div className="flex max-w-screen-xl mx-auto">
+    <div className="lg:flex">
       <DashNav />
-      <div className="p-5 mx-auto">
+      <div className="p-5 mx-auto mb-20 lg:ml-[220px]">
         <Outlet />
       </div>
     </div>
