@@ -24,7 +24,7 @@ const customStyles = {
 };
 const AddTask = () => {
   useEffect(() => {
-    window.document.title = "PrimePress | Add Articles";
+    window.document.title = "TaskSnap | Add task";
   }, []);
   const { user } = useContext(AuthContext);
 

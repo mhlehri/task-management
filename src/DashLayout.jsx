@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import DashNav from "./Pages/Dashboard/component/DashNav";
+
 const DashLayout = () => {
   return (
     <div className="lg:flex">

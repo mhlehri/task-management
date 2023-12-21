@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@tanstack/react-query": "^5.14.2",
     "axios": "^1.6.2",
     "firebase": "^10.7.1",
