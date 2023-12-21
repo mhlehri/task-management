@@ -9,7 +9,7 @@ export function SignIn() {
   useEffect(() => {
     window.document.title = "TaskSnap | Sign In";
   }, []);
-  const { signIn, signG } = useContext(AuthContext);
+  const { signIn, signG, signGit } = useContext(AuthContext);
   const [logging, setLogging] = useState(false);
   const {
     register,
@@ -169,6 +169,44 @@ export function SignIn() {
               className={`mt-6 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}
             >
               continue with google
+            </button>
+            <button
+              onClick={() => {
+                setLogging(true);
+                signGit()
+                  .then((res) => {
+                    setLogging(false);
+                    navigate("/");
+                    const user = {
+                      name: res.user.displayName,
+                      email: res.user.email,
+                      img: res.user.photoURL,
+                    };
+                    axios
+                      .post("/addUser", user)
+                      .then(() => {})
+                      .catch((err) => {
+                        setLogging(false);
+                        console.log(err);
+                      });
+
+                    // toast.success(`Successfully Logged In!`, {
+                    //   position: "top-center",
+                    //   autoClose: 1500,
+                    //   hideProgressBar: false,
+                    //   closeOnClick: true,
+                    //   pauseOnHover: true,
+                    //   draggable: true,
+                    //   progress: undefined,
+                    //   theme: "colored",
+                    // });
+                  })
+                  .catch(() => setLogging(false));
+              }}
+              type="submit"
+              className={`mt-2 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}
+            >
+              Continue with github
             </button>
           </div>
         </div>

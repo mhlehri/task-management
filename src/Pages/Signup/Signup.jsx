@@ -19,7 +19,7 @@ export function SignUp() {
     setError,
   } = useForm();
 
-  const { createUser, update, signO, signG } = useContext(AuthContext);
+  const { createUser, update, signO, signG, signGit } = useContext(AuthContext);
   const navigate = useNavigate();
   const [creating, setCreating] = useState(false);
   const onSubmit = async (data, e) => {
@@ -283,6 +283,44 @@ export function SignUp() {
               className={`mt-6 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}
             >
               Continue with google
+            </button>
+            <button
+              onClick={() => {
+                setCreating(true);
+                signGit()
+                  .then((res) => {
+                    setCreating(false);
+                    navigate("/");
+                    const user = {
+                      name: res.user.displayName,
+                      email: res.user.email,
+                      img: res.user.photoURL,
+                    };
+                    axios
+                      .post("/addUser", user)
+                      .then(() => {})
+                      .catch((err) => {
+                        setCreating(false);
+                        console.log(err);
+                      });
+
+                    // toast.success(`Successfully Logged In!`, {
+                    //   position: "top-center",
+                    //   autoClose: 1500,
+                    //   hideProgressBar: false,
+                    //   closeOnClick: true,
+                    //   pauseOnHover: true,
+                    //   draggable: true,
+                    //   progress: undefined,
+                    //   theme: "colored",
+                    // });
+                  })
+                  .catch(() => setCreating(false));
+              }}
+              type="submit"
+              className={`mt-2 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}
+            >
+              Continue with github
             </button>
           </div>
         </div>
