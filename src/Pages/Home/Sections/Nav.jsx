@@ -9,7 +9,7 @@ const Nav = () => {
         <div className="logo absolute">
           {/* <img src="" alt="" /> */}
           <h1 className="text-4xl font-semibold">
-            Task<span className="text-blue-600">Span</span>
+            Task<span className="text-amber-500">Span</span>
           </h1>
         </div>
         <div className="flex justify-center mx-auto text-center">

@@ -74,10 +74,10 @@ const AddTask = () => {
   };
 
   return (
-    <div className="text-black w-full  mx-auto h-[80vh] flex items-center justify-center flex-col">
+    <div className="text-black w-full  mx-auto h-full flex items-center justify-center flex-col">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-gradient-to-tr from-[#207cb5] lg:w-[500px]  to-orange-600 p-8 rounded-lg drop-shadow-2xl"
+        className="bg-gradient-to-tr from-[#207cb5] lg:w-[500px]  to-amber-600 p-8 rounded-lg drop-shadow-2xl"
       >
         <h1 className="mb-5 font-bold text-4xl text-white text-center">
           Add New Task

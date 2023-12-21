@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: <DashLayout />,
       },
     ],
   },
@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
     element: <DashLayout />,
     children: [
       {
-        path: "/dashboard",
+        path: "/dashboard/home",
         element: <Dashboard />,
       },
       {
