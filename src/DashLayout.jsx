@@ -4,7 +4,7 @@ const DashLayout = () => {
   return (
     <div className="flex max-w-screen-xl mx-auto">
       <DashNav />
-      <div className="p-5">
+      <div className="p-5 mx-auto">
         <Outlet />
       </div>
     </div>

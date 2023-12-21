@@ -16,10 +16,11 @@ body {
   font-family: "Ubuntu", sans-serif;
 }
 
-input {
+input,
+textarea {
   outline: none;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 15px 10px;
   width: 100%;
 }
