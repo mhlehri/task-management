@@ -64,6 +64,7 @@ const AuthProvider = ({ children }) => {
     const unSub = onAuthStateChanged(auth, (currentUser) => {
       setLoading(false);
       setUser(currentUser);
+      console.log(currentUser);
     });
 
     return () => {

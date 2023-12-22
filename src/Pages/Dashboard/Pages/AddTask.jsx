@@ -1,27 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Select from "react-select";
 import axios from "axios";
 import { AuthContext } from "../../../Components/Authprovider/AuthProvider";
-const options1 = [
-  { value: "Politics", label: "Politics" },
-  { value: "Business", label: "Business" },
-  { value: "Technology", label: "Technology" },
-];
-const customStyles = {
-  control: (provided, state) => ({
-    ...provided,
-    backgroundColor: "white", // Change the background color
-    borderColor: state.isFocused ? "black" : provided.borderColor,
-  }),
-  option: (provided, state) => ({
-    ...provided,
-    backgroundImage: state.isSelected
-      ? "linear-gradient(to top right, #58bfff , #01bea5)"
-      : "white", // Change the option background color
-    color: state.isSelected ? "white" : "black", // Change the option text color
-  }),
-};
+
 const AddTask = () => {
   useEffect(() => {
     window.document.title = "TaskSnap | Add task";
@@ -33,26 +14,26 @@ const AddTask = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [selectedOption, setSelectedOption] = useState(null);
+
   const [publishing, setPublishing] = useState(false);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
     setPublishing(true);
     const title = data.title;
-    const article = data.article;
-    let publisher = e.target.publisher.value;
+    const priority = data.priority;
+    const date = data.date;
+    const des = data.des;
 
     const Info = {
-      publisher,
-      Aemail: user?.email,
-      Aname: user?.displayName,
-      Aimage: user?.photoURL,
       title,
-      article,
+      email: user?.email,
+      priority,
+      deadline: date,
+      description: des,
     };
     axios
-      .post("/addArticle", Info)
+      .post("http://localhost:5000/addTask", Info)
       .then(() => {
         setPublishing(false);
         e.target.reset();
@@ -110,10 +91,15 @@ const AddTask = () => {
             Priority
           </label>
 
-          <select name="priority" id="" className="text-sm mb-2">
-            <option value="low">Low</option>
-            <option value="moderate">Moderate</option>
-            <option value="high">High</option>
+          <select
+            name="priority"
+            {...register("priority")}
+            id=""
+            className="text-sm mb-2"
+          >
+            <option value="Low">Low</option>
+            <option value="Moderate">Moderate</option>
+            <option value="High">High</option>
           </select>
         </div>
         <div>
