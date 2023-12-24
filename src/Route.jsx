@@ -4,9 +4,14 @@ import Layout from "./Layout";
 import { SignIn } from "./Pages/Signin/Signin";
 import { SignUp } from "./Pages/Signup/Signup";
 import DashLayout from "./DashLayout";
-import Dashboard from "./Pages/Dashboard/Dashboard";
 import AddTask from "./Pages/Dashboard/Pages/AddTask";
 import AllTask from "./Pages/Dashboard/Pages/AllTask";
+import PrivateRoute from "./Private";
+import Contact from "./Pages/Contact/Contact";
+import Pricing from "./Pages/Pricing/Pricing";
+import Profile from "./Pages/Profile/Profile";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import EditTask from "./Pages/Dashboard/Pages/Edit";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +23,14 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/pricing",
+        element: <Pricing />,
+      },
+      {
         path: "/login",
         element: <SignIn />,
       },
@@ -25,27 +38,55 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <SignUp />,
       },
-      {
-        path: "/dashboard",
-        element: <DashLayout />,
-      },
     ],
   },
   {
     path: "/dashboard",
-    element: <DashLayout />,
+    element: (
+      <PrivateRoute>
+        <DashLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard/home",
-        element: <Dashboard />,
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/add",
-        element: <AddTask />,
+        element: (
+          <PrivateRoute>
+            <AddTask />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/all_tasks",
-        element: <AllTask />,
+        element: (
+          <PrivateRoute>
+            <AllTask />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/edit/:id",
+        element: (
+          <PrivateRoute>
+            <EditTask />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
     ],
   },

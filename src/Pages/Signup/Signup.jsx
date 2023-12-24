@@ -4,13 +4,14 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { AuthContext } from "../../Components/Authprovider/AuthProvider";
+import { toast } from "react-toastify";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 export function SignUp() {
   useEffect(() => {
-    window.document.title = "TaskSnap | Sign Up";
+    window.document.title = "TaskSpan | Sign Up";
   }, []);
   const {
     register,
@@ -41,26 +42,21 @@ export function SignUp() {
     if (res.data.success) {
       createUser(email, password)
         .then(() => {
-          // toast.success("Successfully Registered!", {
-          //   position: "top-center",
-          //   autoClose: 2000,
-          //   hideProgressBar: false,
-          //   closeOnClick: true,
-          //   pauseOnHover: true,
-          //   draggable: true,
-          //   progress: undefined,
-          //   theme: "colored",
-          // });
+          toast.success("Successfully Registered!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
 
           update(name, img)
             .then(
               signO()
                 .then(() => {
-                  const user = { name, email, img };
-                  axios
-                    .post("/addUser", user)
-                    .then(() => {})
-                    .catch((err) => console.log(err));
                   navigate("/login");
                   setCreating(false);
                 })
@@ -70,16 +66,16 @@ export function SignUp() {
             )
             .catch((err) => {
               if (err) {
-                // toast.error(`${err.code}`, {
-                //   position: "top-center",
-                //   autoClose: 2000,
-                //   hideProgressBar: false,
-                //   closeOnClick: true,
-                //   pauseOnHover: true,
-                //   draggable: true,
-                //   progress: undefined,
-                //   theme: "colored",
-                // });
+                toast.error(`${err.code}`, {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                });
                 setCreating(false);
               }
             });
@@ -99,16 +95,16 @@ export function SignUp() {
               message: `${er}`,
             });
           }
-          // toast.error(`${err.code}`, {
-          //   position: "top-center",
-          //   autoClose: 2000,
-          //   hideProgressBar: false,
-          //   closeOnClick: true,
-          //   pauseOnHover: true,
-          //   draggable: true,
-          //   progress: undefined,
-          //   theme: "colored",
-          // });
+          toast.error(`${err.code}`, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   };
@@ -252,32 +248,31 @@ export function SignUp() {
                 signG()
                   .then((res) => {
                     setCreating(false);
-                    navigate("/");
-                    const user = {
-                      name: res.user.displayName,
-                      email: res.user.email,
-                      img: res.user.photoURL,
-                    };
-                    axios
-                      .post("/addUser", user)
-                      .then(() => {})
-                      .catch((err) => {
-                        setCreating(false);
-                        console.log(err);
-                      });
-
-                    // toast.success(`Successfully Logged In!`, {
-                    //   position: "top-center",
-                    //   autoClose: 1500,
-                    //   hideProgressBar: false,
-                    //   closeOnClick: true,
-                    //   pauseOnHover: true,
-                    //   draggable: true,
-                    //   progress: undefined,
-                    //   theme: "colored",
-                    // });
+                    navigate("/dashboard/home");
+                    toast.success(`Successfully Logged In!`, {
+                      position: "top-center",
+                      autoClose: 1500,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
                   })
-                  .catch(() => setCreating(false));
+                  .catch((err) => {
+                    setCreating(false);
+                    toast.error(`${err.message}`, {
+                      position: "top-center",
+                      autoClose: 2000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
+                  });
               }}
               type="submit"
               className={`mt-6 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}
@@ -288,34 +283,33 @@ export function SignUp() {
               onClick={() => {
                 setCreating(true);
                 signGit()
-                  .then((res) => {
+                  .then(() => {
                     setCreating(false);
-                    navigate("/");
-                    const user = {
-                      name: res.user.displayName,
-                      email: res.user.email,
-                      img: res.user.photoURL,
-                    };
-                    axios
-                      .post("/addUser", user)
-                      .then(() => {})
-                      .catch((err) => {
-                        setCreating(false);
-                        console.log(err);
-                      });
-
-                    // toast.success(`Successfully Logged In!`, {
-                    //   position: "top-center",
-                    //   autoClose: 1500,
-                    //   hideProgressBar: false,
-                    //   closeOnClick: true,
-                    //   pauseOnHover: true,
-                    //   draggable: true,
-                    //   progress: undefined,
-                    //   theme: "colored",
-                    // });
+                    navigate("/dashboard/home");
+                    toast.success(`Successfully Logged In!`, {
+                      position: "top-center",
+                      autoClose: 1500,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
                   })
-                  .catch(() => setCreating(false));
+                  .catch((err) => {
+                    setCreating(false);
+                    toast.error(`${err.message}`, {
+                      position: "top-center",
+                      autoClose: 2000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
+                  });
               }}
               type="submit"
               className={`mt-2 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}

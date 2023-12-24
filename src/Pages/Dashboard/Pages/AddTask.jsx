@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { AuthContext } from "../../../Components/Authprovider/AuthProvider";
+import { toast } from "react-toastify";
 
 const AddTask = () => {
   useEffect(() => {
-    window.document.title = "TaskSnap | Add task";
+    window.document.title = "TaskSpan | Add task";
   }, []);
   const { user } = useContext(AuthContext);
 
@@ -33,21 +34,23 @@ const AddTask = () => {
       description: des,
     };
     axios
-      .post("http://localhost:5000/addTask", Info)
+      .post(
+        "https://task-management-server-eight-topaz.vercel.app/addTask",
+        Info
+      )
       .then(() => {
         setPublishing(false);
         e.target.reset();
-        //   toast.success("Successfully Inserted!", {
-        //     position: "top-center",
-        //     autoClose: 2000,
-        //     hideProgressBar: false,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        //     theme: "colored",
-        //   }
-        //   );
+        toast.success("Successfully Inserted!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       })
       .catch(() => {
         setPublishing(false);
@@ -55,10 +58,10 @@ const AddTask = () => {
   };
 
   return (
-    <div className="text-black w-full  mx-auto h-full flex items-center justify-center flex-col">
+    <div className="text-black max-w-full  mx-auto h-screen flex items-center justify-center flex-col mb-20 lg:mb-0">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-gradient-to-tr from-[#207cb5] lg:w-[500px]  to-amber-600 p-8 rounded-lg drop-shadow-2xl"
+        className="bg-gradient-to-tr from-slate-700 w-full md:w-2/3 lg:w-[550px]  to-amber-500 p-8 rounded-lg drop-shadow-2xl"
       >
         <h1 className="mb-5 font-bold text-4xl text-white text-center">
           Add New Task

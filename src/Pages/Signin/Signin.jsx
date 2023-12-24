@@ -4,10 +4,11 @@ import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { AuthContext } from "../../Components/Authprovider/AuthProvider";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export function SignIn() {
   useEffect(() => {
-    window.document.title = "TaskSnap | Sign In";
+    window.document.title = "TaskSpan | Sign In";
   }, []);
   const { signIn, signG, signGit } = useContext(AuthContext);
   const [logging, setLogging] = useState(false);
@@ -21,7 +22,6 @@ export function SignIn() {
   const onSubmit = (data, e) => {
     e.preventDefault();
     setLogging(true);
-    // const form = e.target;
     const email = data.email;
     const password = data.password;
     const user = { email, password };
@@ -29,17 +29,17 @@ export function SignIn() {
     signIn(email, password)
       .then(() => {
         setLogging(false);
-        // toast.success("Successfully Logged In!", {
-        //   position: "top-center",
-        //   autoClose: 3000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "colored",
-        // });
-        navigate("/");
+        toast.success("Successfully Logged In!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        navigate("/dashboard/home");
       })
       .catch((err) => {
         setLogging(false);
@@ -76,6 +76,7 @@ export function SignIn() {
                   type="email"
                   size="lg"
                   name="email"
+                  defaultValue="demo@gmail.com"
                   placeholder="abc@example.com"
                   {...register("email", {
                     required: "Email is required",
@@ -98,6 +99,7 @@ export function SignIn() {
                 <input
                   id="pass"
                   placeholder="*************"
+                  defaultValue="12345A@"
                   type="password"
                   size="lg"
                   name="password"
@@ -135,35 +137,33 @@ export function SignIn() {
               onClick={() => {
                 setLogging(true);
                 signG()
-                  .then((res) => {
+                  .then(() => {
                     setLogging(false);
-                    navigate("/");
-                    const user = {
-                      name: res.user.displayName,
-                      email: res.user.email,
-                      img: res.user.photoURL,
-                    };
-
-                    axios
-                      .post("/addUser", user)
-                      .then(() => {
-                        setLogging(false);
-                      })
-                      .catch(() => {
-                        setLogging(false);
-                      });
-                    // toast.success(`Successfully Logged In!`, {
-                    //   position: "top-center",
-                    //   autoClose: 1500,
-                    //   hideProgressBar: false,
-                    //   closeOnClick: true,
-                    //   pauseOnHover: true,
-                    //   draggable: true,
-                    //   progress: undefined,
-                    //   theme: "colored",
-                    // });
+                    navigate("/dashboard/home");
+                    toast.success(`Successfully Logged In!`, {
+                      position: "top-center",
+                      autoClose: 1500,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
                   })
-                  .catch(() => setLogging(false));
+                  .catch((err) => {
+                    setLogging(false);
+                    toast.error(`${err.message}`, {
+                      position: "top-center",
+                      autoClose: 2000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
+                  });
               }}
               type="submit"
               className={`mt-6 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}
@@ -174,34 +174,33 @@ export function SignIn() {
               onClick={() => {
                 setLogging(true);
                 signGit()
-                  .then((res) => {
+                  .then(() => {
                     setLogging(false);
-                    navigate("/");
-                    const user = {
-                      name: res.user.displayName,
-                      email: res.user.email,
-                      img: res.user.photoURL,
-                    };
-                    axios
-                      .post("/addUser", user)
-                      .then(() => {})
-                      .catch((err) => {
-                        setLogging(false);
-                        console.log(err);
-                      });
-
-                    // toast.success(`Successfully Logged In!`, {
-                    //   position: "top-center",
-                    //   autoClose: 1500,
-                    //   hideProgressBar: false,
-                    //   closeOnClick: true,
-                    //   pauseOnHover: true,
-                    //   draggable: true,
-                    //   progress: undefined,
-                    //   theme: "colored",
-                    // });
+                    navigate("/dashboard/home");
+                    toast.success(`Successfully Logged In!`, {
+                      position: "top-center",
+                      autoClose: 1500,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
                   })
-                  .catch(() => setLogging(false));
+                  .catch((err) => {
+                    setLogging(false);
+                    toast.error(`${err.message}`, {
+                      position: "top-center",
+                      autoClose: 2000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored",
+                    });
+                  });
               }}
               type="submit"
               className={`mt-2 lg:w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2  py-2 px-4 duration-300 ease-linear`}

@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import Banner from "./Sections/Banner";
-import Nav from "./Sections/Nav";
+import User from "./Sections/User";
 
 const Home = () => {
   useEffect(() => {
-    window.document.title = "TaskSnap | Home";
+    window.document.title = "TaskSpan | Home";
   }, []);
   return (
     <div>
       <header>
-        <Nav />
         <Banner />
+        <User />
       </header>
     </div>
   );
